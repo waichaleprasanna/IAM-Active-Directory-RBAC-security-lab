@@ -33,10 +33,27 @@ The Windows Server 2022 domain controller provides directory, DNS, authenticatio
 | [Account lockout and monitoring](security/account-lockout.md) | Recorded policy values and observed authentication/lockout evidence. |
 | [Test cases](testing/test-cases.md) | Evidence-linked validation status and remaining gaps. |
 
+## RBAC evidence chain
+
+The core lab design is that access is granted through a role group, not by assigning a user directly to a resource:
+
+```text
+Domain user → Active Directory identity → role group → resource permission → access decision
+```
+
+| Published identity label | Role group | Protected resource / validation | Result recorded |
+|---|---|---|---|
+| `SOC-ADMIN-01` | `ADMINS` | `\\Soc-dc\admin_files` | Share contents were successfully opened; the capture does not identify the signed-in user or show the share ACL. |
+| `SOC-ANALYST-01` | `ANALYST` | Role-group membership | Membership view recorded. No resource authorization test is recorded. |
+| `SOC-SUPPORT-01` | `IT-SUPPORT` | Role-group assignment | Assignment is documented; no membership or resource test is recorded. |
+| `SOC-USER-01` | `GG-SOC-USERS` | `\\Soc-dc\admin_files` | Access-denied result recorded; the capture does not identify the attempted user. |
+
+The labels are redacted documentation identifiers, not the actual AD usernames. The [RBAC implementation](access-control/rbac-implementation.md) distinguishes recorded evidence from the remaining ACL and identity-verification gap.
+
 ## Evidence highlights
 
 - The AD Users and Computers view shows the `soclab.local` domain and lab OUs, including `SOC-GROUPS` and `SOC-USERS`.
-- Group membership evidence records users assigned to role groups. A resource-access test also records an access-denied result for a protected share.
+- Group membership evidence records users assigned to role groups. The repository also records successful opening of, and denied access to, the `admin_files` share.
 - The default domain password-policy output records a lockout threshold of five attempts, with a 30-minute lockout duration and observation window.
 - Security logs include failed-logon Event ID 4625 and account-lockout Event ID 4740 evidence.
 
