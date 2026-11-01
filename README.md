@@ -1,171 +1,77 @@
 # IAM Active Directory RBAC Security Lab
 
-A hands-on Identity and Access Management (IAM) cybersecurity lab built using Windows Server 2022 and Active Directory Domain Services (AD DS).
+A hands-on Identity and Access Management (IAM) security lab built with Windows Server 2022, Active Directory Domain Services (AD DS), and a Windows 11 domain client.
 
-This project demonstrates centralized identity management, Role-Based Access Control (RBAC), domain authentication, security policy enforcement, and authentication event monitoring in a controlled lab environment.
+The lab demonstrates centralized identity management, role-based group administration, domain authentication, account-lockout policy configuration, and Windows Security event review in the `soclab.local` domain.
 
-## Project Overview
-
-Identity and Access Management is a fundamental component of enterprise cybersecurity. Organizations use IAM to manage digital identities, control access to resources, and enforce security policies.
-
-This lab simulates a small Security Operations Center (SOC) environment using Active Directory to manage domain users, organize security groups, and validate identity-related security controls.
-
-The lab consists of a Windows Server 2022 domain controller and a Windows 11 domain-joined client.
-
-## Objectives
-
-- Deploy and configure an Active Directory domain.
-- Establish centralized identity management.
-- Create and organize domain user accounts.
-- Implement Role-Based Access Control using security groups.
-- Join a Windows 11 client to the domain.
-- Configure and validate authentication security policies.
-- Monitor Windows security events related to authentication.
-- Document implementation, testing, and troubleshooting procedures.
-
-## Lab Environment
+## Lab environment
 
 | Component | Configuration |
 |---|---|
-| Domain Controller | Windows Server 2022 |
-| Client Machine | Windows 11 |
-| Directory Service | Active Directory Domain Services |
+| Domain controller | Windows Server 2022 |
+| Client | Windows 11 |
+| Directory service | Active Directory Domain Services |
 | Domain | `soclab.local` |
-| Access Control | Active Directory Security Groups |
-| Policy Management | Group Policy |
-| Security Monitoring | Windows Security Event Logs |
+| Access-control model | Active Directory security groups |
+| Policy management | Group Policy |
+| Monitoring | Windows Security Event Logs |
 
 ## Architecture
 
-The Windows Server 2022 domain controller provides centralized directory and authentication services for the `soclab.local` domain.
+The Windows Server 2022 domain controller provides directory, DNS, authentication, and policy services for `soclab.local`. The Windows 11 client is domain joined and is used to test identity and access controls.
 
-The Windows 11 client is joined to the domain and uses Active Directory domain credentials for authentication.
+![Active Directory OU view](screenshots/AD-Architecture/active-directory-domain-ous.png)
 
-```text
-                  IAM SECURITY LAB
-                        
-              Active Directory Domain
-                    soclab.local
-                        
-             Windows Server 2022
-                Domain Controller
-                        
-           ┌────────────┬────────────┐
-           │            │            │
-       User Mgmt     Security     Group Policy
-                      Groups
-           │            │            │
-           └────────────┴────────────┘
-                        │
-                  Domain Auth
-                        │
-                Windows 11 Client
-                        │
-               Domain User Login
-                        │
-                Security Event Logs
-```
+## Documentation
 
-## Project Implementation
+| Area | Description |
+|---|---|
+| [Active Directory setup](setup/active-directory.md) | Domain foundation, DNS role, verified directory organization, and evidence. |
+| [Windows client setup](setup/windows-client.md) | Domain-client role and the validation scope recorded for the lab. |
+| [User accounts](identity-management/user-accounts.md) | Identity-management approach and redacted documentation labels. |
+| [RBAC implementation](access-control/rbac-implementation.md) | Security groups, membership evidence, and resource-access evidence. |
+| [Account lockout and monitoring](security/account-lockout.md) | Recorded policy values and observed authentication/lockout evidence. |
+| [Test cases](testing/test-cases.md) | Evidence-linked validation status and remaining gaps. |
 
-### 1. Active Directory Setup
+## Evidence highlights
 
-Installation and configuration of Active Directory Domain Services and creation of the `soclab.local` domain.
+- The AD Users and Computers view shows the `soclab.local` domain and lab OUs, including `SOC-GROUPS` and `SOC-USERS`.
+- Group membership evidence records users assigned to role groups. A resource-access test also records an access-denied result for a protected share.
+- The default domain password-policy output records a lockout threshold of five attempts, with a 30-minute lockout duration and observation window.
+- Security logs include failed-logon Event ID 4625 and account-lockout Event ID 4740 evidence.
 
-Documentation: [Active Directory Setup](setup/active-directory.md)
+See the [test cases](testing/test-cases.md) for the precise status of each claim. In particular, Event ID 4767 (account unlock) is not recorded in the repository and is not claimed as validated.
 
-### 2. Windows Client Integration
-
-Joining a Windows 11 client to the Active Directory domain and validating domain authentication.
-
-Documentation: [Windows Client Setup](setup/windows-client.md)
-
-### 3. Identity Management
-
-Creating and managing domain user accounts and organizing identities within Active Directory.
-
-Documentation: [User Account Management](identity-management/user-accounts.md)
-
-### 4. Role-Based Access Control
-
-Organizing users into security groups according to their assigned roles and responsibilities.
-
-### 5. Security Policies and Monitoring
-
-Configuring authentication security controls and reviewing Windows security events to validate identity-related activities.
-
-## Validation
-
-The lab includes validation activities such as:
-
-- Active Directory domain configuration.
-- Windows 11 domain joining.
-- Domain user authentication.
-- Security group membership verification.
-- Role-based access control validation.
-- Account-lockout policy testing.
-- Windows security event review.
-
-Detailed test results and evidence will be documented as the implementation progresses.
-
-## Repository Structure
+## Repository structure
 
 ```text
 IAM-Active-Directory-RABC-security-lab/
-│
 ├── README.md
-│
-├── architecture/
 ├── setup/
-│   ├── active-directory.md
-│   └── windows-client.md
-│
 ├── identity-management/
-│   └── user-accounts.md
-│
 ├── access-control/
 ├── security/
 ├── testing/
-├── troubleshooting/
 └── screenshots/
+    ├── AD-Architecture/
+    ├── Identity-and-RBAC/
+    ├── Resource-Permissions/
+    ├── Access-Testing/
+    └── Security-Monitoring/
 ```
 
-## Technologies Used
+## Security notes
 
-- Windows Server 2022
-- Windows 11
-- Active Directory Domain Services
-- Group Policy
-- Active Directory Users and Computers
-- Windows Security Event Logs
-- Git and GitHub
+- Use individual accounts and assign resource permissions through groups where practical.
+- Apply least privilege and periodically review group membership.
+- Do not commit passwords, credentials, or sensitive configuration data.
+- Perform testing only in an authorized lab environment.
 
-## Security Considerations
+## Project status
 
-- Use individual accounts for identity management.
-- Assign permissions through security groups where possible.
-- Restrict administrative privileges.
-- Never commit passwords, credentials, or sensitive configuration data.
-- Perform security testing only in an authorized lab environment.
-
-## Learning Outcomes
-
-This project provides practical experience with:
-
-- Enterprise identity management.
-- Active Directory administration.
-- Role-based access control.
-- Domain authentication.
-- Security policy configuration.
-- Authentication event analysis.
-- IAM security testing and documentation.
-
-## Project Status
-
-The lab is being developed and documented incrementally. Additional access-control implementation, security validation, monitoring evidence, and troubleshooting documentation will be added as the project progresses.
+The repository documents the Active Directory foundation, role-group organization, resource-access testing, and observed authentication/lockout events. The remaining documented gap is verification of an account-unlock audit event (4767).
 
 ---
 
 **Author:** Prasanna Waichale
-
 **Repository:** [IAM Active Directory RBAC Security Lab](https://github.com/waichaleprasanna/IAM-Active-Directory-RABC-security-lab)

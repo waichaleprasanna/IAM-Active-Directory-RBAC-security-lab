@@ -1,164 +1,42 @@
-\# Identity Management — User Accounts
+# Identity Management — User Accounts
 
+## Overview
 
+This lab uses Active Directory domain accounts to represent individual identities in a small SOC scenario. Centralized identity administration permits accounts and their role-group memberships to be managed from the domain controller.
 
-\## 1. Overview
+## Account organization
 
+The group-membership evidence places the recorded user objects in the `SOC-USERS` organizational unit under `soclab.local`.
 
+```text
+soclab.local
+└── SOC-USERS
+```
 
-This document describes how domain user identities were created and managed in the IAM lab using Active Directory.
+## Published identity labels
 
+The table below uses neutral labels to avoid republishing lab users' personal or unsuitable display names. These are documentation labels only; they are not a request to rename Active Directory accounts.
 
+| Published label | Intended role | Role group |
+|---|---|---|
+| `SOC-ADMIN-01` | Administrator | `ADMINS` |
+| `SOC-ANALYST-01` | SOC Analyst | `ANALYST` |
+| `SOC-SUPPORT-01` | IT Support | `IT-SUPPORT` |
+| `SOC-USER-01` | General SOC user | `GG-SOC-USERS` |
 
-User accounts represent individual identities that can authenticate to domain-joined systems. Centralized account management allows administrators to manage identities and access from the domain controller.
+## Validation scope
 
+The repository records group membership and domain-client authentication activity. It supports the conclusion that identities were organized and assigned to intended role groups; it does not disclose the underlying account names in this documentation.
 
+## Security considerations
 
-\## 2. Purpose
+- Use a distinct account for each person or service.
+- Assign permissions through role groups rather than directly to users where practical.
+- Limit administrative privileges and periodically review group membership.
+- Never commit passwords or other credentials.
 
+## Evidence
 
-
-The objective of user management in this lab is to demonstrate:
-
-
-
-\- Centralized creation and management of domain accounts.
-
-\- Organization of users within Active Directory.
-
-\- Assignment of users to security groups.
-
-\- Domain authentication from the Windows 11 client.
-
-\- Verification of user identity and group membership.
-
-
-
-\## 3. Domain User Accounts
-
-
-
-The lab contains domain user accounts representing different roles within a small SOC environment.
-
-
-
-The accounts are managed in Active Directory under the `soclab.local` domain.
-
-
-
-| User account | Intended role |
-
-|---|---|
-
-| `AMARLODU` | Administrator |
-
-| `REVANTHNIGGA` | Analyst |
-
-| `PRATEEKJHATOO` | IT Support |
-
-| `GANDUAKSHAY` | General SOC User |
-
-
-
-These accounts are used to validate role-based group assignment and domain authentication.
-
-
-
-\## 4. Account Organization
-
-
-
-User accounts are organized using Active Directory Organizational Units (OUs).
-
-
-
-This provides a logical structure for identity administration and supports the application of policies to selected groups of directory objects.
-
-
-
-Document the actual OU containing these users here:
-
-
-
-`\[Insert the actual user OU name]`
-
-
-
-\## 5. Authentication
-
-
-
-The domain user accounts can authenticate to the Windows 11 client using domain credentials.
-
-
-
-The domain controller validates the credentials, and Windows uses the user's identity and group membership when evaluating access to domain resources.
-
-
-
-\## 6. Validation
-
-
-
-User account management was validated by:
-
-
-
-\- Confirming that the domain user accounts existed in Active Directory.
-
-\- Signing in to the Windows 11 client with domain credentials.
-
-\- Verifying the logged-in domain identity.
-
-\- Inspecting group membership.
-
-\- Confirming that the accounts were associated with their intended roles.
-
-
-
-\## 7. Security Considerations
-
-
-
-\- Each user should have an individual account.
-
-\- Permissions should be assigned through role-based groups where possible.
-
-\- Administrative privileges should be limited to accounts that require them.
-
-\- Passwords and credentials should never be committed to the GitHub repository.
-
-\- User accounts should be disabled or removed when they are no longer required.
-
-
-
-\## 8. Result
-
-
-
-The lab demonstrates centralized domain user management through Active Directory. These identities provide the basis for role-based access control and authentication security testing.
-
-
-
-\## 9. Evidence
-
-
-
-Add screenshots demonstrating:
-
-
-
-\- Domain users in Active Directory Users and Computers.
-
-\- User account properties.
-
-\- Successful domain authentication.
-
-\- Group membership verification.
-
-
-
-Place the screenshots in the repository's `screenshots/` directory and link them here when ready.
-
-
-
+- [SOC-USERS view](../screenshots/AD-Architecture/active-directory-soc-users.png)
+- [ANALYST group membership](../screenshots/Identity-and-RBAC/analyst-members.png)
+- [GG-SOC-USERS membership](../screenshots/Identity-and-RBAC/gg-soc-users-members.png)

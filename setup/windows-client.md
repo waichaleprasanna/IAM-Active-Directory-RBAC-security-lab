@@ -1,138 +1,23 @@
-\# Windows 11 Domain Client Setup
+# Windows 11 Domain Client Setup
 
+## Overview
 
-
-\## 1. Overview
-
-
-
-A Windows 11 virtual machine was configured as the domain client for the IAM lab.
-
-
-
-The client was joined to the Active Directory domain `soclab.local`, allowing domain users to authenticate using centrally managed identities.
-
-
-
-\## 2. Purpose of the Client
-
-
-
-The Windows 11 client is used to validate the identity and access controls configured on the domain controller.
-
-
-
-It provides a practical environment for testing:
-
-
-
-\- Domain user authentication
-
-\- Active Directory group membership
-
-\- Role-based access controls
-
-\- Authentication security policies
-
-\- Account-lockout behavior
-
-
-
-\## 3. Domain Join
-
-
-
-The Windows 11 client was joined to the `soclab.local` domain.
-
-
-
-A successful domain join establishes a trust relationship between the client computer and the domain environment. It allows the client to use domain credentials and communicate with Active Directory services.
-
-
-
-\### Domain details
-
-
+A Windows 11 virtual machine is the domain client for the `soclab.local` IAM lab. It is used to exercise domain authentication, group-based access decisions, and account-lockout behavior against the Windows Server 2022 domain controller.
 
 | Setting | Value |
-
 |---|---|
-
 | Client operating system | Windows 11 |
-
 | Active Directory domain | `soclab.local` |
-
 | Authentication | Active Directory domain credentials |
 
+## Domain-client role
 
+Joining a client to the domain establishes a trust relationship that permits domain credentials to be evaluated by the domain controller. The client must be able to resolve the domain through the lab DNS configuration before it can locate domain services.
 
-\## 4. Domain Authentication
+## Recorded validation
 
+The lab documentation records that the Windows 11 client was joined to `soclab.local`, a domain account was used to authenticate, and group membership was inspected. The repository does not currently contain a dedicated domain-membership screenshot, so this document does not add a screenshot claim beyond the evidence linked in the identity, RBAC, and testing documents.
 
+## Result
 
-After joining the domain, domain users can sign in to the Windows 11 client using their domain accounts.
-
-
-
-The domain controller validates the user's credentials. The user's security group memberships are then available to Windows for access-control decisions.
-
-
-
-Domain authentication was tested using the lab's domain user accounts.
-
-
-
-\## 5. Validation
-
-
-
-The client configuration was validated through the following checks:
-
-
-
-\- Confirmed that the Windows 11 machine was joined to `soclab.local`.
-
-\- Signed in using a domain user account.
-
-\- Verified the logged-in domain identity.
-
-\- Inspected the user's group membership.
-
-\- Confirmed that the client could authenticate against the domain.
-
-
-
-\## 6. Result
-
-
-
-The Windows 11 client was successfully integrated into the Active Directory domain.
-
-
-
-It serves as the client endpoint for testing domain authentication, group-based access control, and account security behavior.
-
-
-
-\## 7. Evidence
-
-
-
-Add screenshots showing:
-
-
-
-\- Windows 11 domain membership
-
-\- Successful domain user sign-in
-
-\- Domain identity verification
-
-\- Group membership verification
-
-
-
-Store the screenshots in the repository's `screenshots/` directory and link them here when ready.
-
-
-
+The Windows 11 client provides the endpoint used for the lab's domain authentication, role-group, resource-access, and account-lockout tests.
