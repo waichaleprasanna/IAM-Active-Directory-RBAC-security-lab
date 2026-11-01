@@ -62,7 +62,7 @@ See the [test cases](testing/test-cases.md) for the precise status of each claim
 ## Repository structure
 
 ```text
-IAM-Active-Directory-RABC-security-lab/
+IAM-Active-Directory-RBAC-security-lab/
 ├── README.md
 ├── setup/
 ├── identity-management/
