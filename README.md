@@ -91,4 +91,4 @@ The repository documents the Active Directory foundation, role-group organizatio
 ---
 
 **Author:** Prasanna Waichale
-**Repository:** [IAM Active Directory RBAC Security Lab](https://github.com/waichaleprasanna/IAM-Active-Directory-RABC-security-lab)
+**Repository:** [IAM Active Directory RBAC Security Lab](https://github.com/waichaleprasanna/IAM-Active-Directory-RBAC-security-lab)
